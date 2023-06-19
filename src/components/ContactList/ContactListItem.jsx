@@ -1,14 +1,14 @@
 import React from 'react';
 import css from '../ContactList/ContactList.module.css';
-import { useDeleteContactMutation } from 'contactsApi/contactsApi';
+import { deleteContact } from '../../redux/operations';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
 
 const ContactListItem = ({ name, phone, id }) => {
-  const [deleteContact, delInfo] = useDeleteContactMutation();
-
+  const dispatch = useDispatch();
   const handleDeleteContact = () => {
-    deleteContact(id);
+    dispatch(deleteContact(id));
     toast.info('Contact delete', {
       position: 'top-right',
       autoClose: 5000,
@@ -24,13 +24,13 @@ const ContactListItem = ({ name, phone, id }) => {
   return (
     <>
       <li className={css.contactsItem}>
-        <p>{name}: </p>
+        <p>{name} </p>
         <p>{phone}</p>
 
         <button
           type="button"
           onClick={handleDeleteContact}
-          disabled={delInfo.isLoading}
+          // disabled={delInfo.isLoading}
         >
           Delete
         </button>

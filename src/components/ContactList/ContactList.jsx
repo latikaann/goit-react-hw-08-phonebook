@@ -1,29 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import css from '../ContactList/ContactList.module.css';
 import ContactListItem from './ContactListItem';
-import { useSelector } from 'react-redux';
-import { useFetchContactsQuery } from '../../contactsApi/contactsApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts } from 'redux/operations';
+import {
+  getContacts,
+  getError,
+  getFilter,
+  getIsLoading,
+} from 'redux/selectors';
 import Spinner from 'components/Spinner/Spinner';
 
 const ContactList = () => {
-  const { data, isError, isFetching } = useFetchContactsQuery();
-
-  const contacts = data || [];
-
-  const filter = useSelector(state => state.filter);
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts) || [];
+  const filter = useSelector(getFilter);
+  const error = useSelector(getError);
+  const isLoading = useSelector(getIsLoading);
 
   const normalizeFilter = filter.toLowerCase();
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(normalizeFilter)
   );
 
-  if (isError) {
-    return <div>Error loading contacts.</div>;
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+  if (error) {
+    return <div className={css.titleNotFound}>Error loading contacts.</div>;
   }
 
   return (
     <div>
-      {isFetching ? (
+      {isLoading ? (
         <Spinner />
       ) : (
         <>

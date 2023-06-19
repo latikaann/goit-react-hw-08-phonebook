@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import css from '../ContactForm/ContactForm.module.css';
 import { nanoid } from 'nanoid';
-import {
-  useAddContactMutation,
-  useFetchContactsQuery,
-} from 'contactsApi/contactsApi';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from '../../redux/operations';
+import { getContacts } from 'redux/selectors';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
-  const [addContact] = useAddContactMutation();
-  const { data: contacts } = useFetchContactsQuery();
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -34,9 +32,6 @@ export default function ContactForm() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // if (!name || !phone) {
-    //   return;
-    // }
 
     const newContact = {
       id: nanoid(6),
@@ -55,11 +50,10 @@ export default function ContactForm() {
         progress: undefined,
         theme: 'colored',
       });
-      // alert(`${newContact.name} is already in contacts.`);
       return;
     }
 
-    addContact(newContact);
+    dispatch(addContact(newContact));
     toast.success('Contact added to the phonebook!', {
       position: 'top-right',
       autoClose: 5000,
