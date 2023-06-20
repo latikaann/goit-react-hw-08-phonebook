@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import css from '../ContactList/ContactList.module.css';
 import ContactListItem from './ContactListItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from 'redux/operations';
+import { fetchContacts } from 'redux/contacts/operations';
 import {
   getContacts,
   getError,
   getFilter,
   getIsLoading,
-} from 'redux/selectors';
+} from 'redux/contacts/selectors';
 import Spinner from 'components/Spinner/Spinner';
 
 const ContactList = () => {
