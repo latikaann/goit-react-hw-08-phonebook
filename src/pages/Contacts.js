@@ -2,7 +2,6 @@ import ContactForm from 'components/ContactForm/ContactForm';
 import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter/Filter';
 import React, { useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
 import css from '../../src/components/App.module.css';
 import { fetchContacts } from 'redux/contacts/operations';
 import { useDispatch } from 'react-redux';
@@ -21,18 +20,6 @@ const Contacts = () => {
       <h2 className={css.title}>Contacts</h2>
       <Filter />
       <ContactList />
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
     </div>
   );
 };

@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
 
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export default function ContactForm() {
         break;
 
       case 'number':
-        setPhone(value);
+        setNumber(value);
         break;
 
       default:
@@ -34,9 +34,9 @@ export default function ContactForm() {
     e.preventDefault();
 
     const newContact = {
-      id: nanoid(6),
+      // id: nanoid(6),
       name,
-      phone,
+      number,
     };
 
     if (contacts.find(item => item.name === newContact.name)) {
@@ -69,7 +69,7 @@ export default function ContactForm() {
 
   const reset = () => {
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   return (
@@ -97,7 +97,7 @@ export default function ContactForm() {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
             onChange={handleChange}
-            value={phone}
+            value={number}
             placeholder="Phone number"
           />
         </label>

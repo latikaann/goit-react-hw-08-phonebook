@@ -2,12 +2,13 @@
   color: white;
   font-size: 17px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+      align-items: center;
 }
 
 .contactsItem p {
-  width: 250px;
-    padding: 2px;
+  width: 300px;
+  padding: 2px;
 }
 
 .contactsList {
@@ -23,4 +24,8 @@
 
   font:   40px Georgia, Serif;
   text-shadow: -1px 3px 0 #04050a;
+}
+
+.deleteButton {
+  color: white;
 }
